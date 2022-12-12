@@ -14,4 +14,5 @@ public interface UserService {
     void updateUserById(UserDto userDto);
     void getUserByName();
     void getUserByAge();
+    void getUserByEmail();
 }
