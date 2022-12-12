@@ -13,4 +13,5 @@ public interface UserService {
     void deleteUserById(Long id);
     void updateUserById(UserDto userDto);
     void getUserByName();
+    void getUserByAge();
 }
