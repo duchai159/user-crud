@@ -2,7 +2,7 @@ package com.example.usercrud.controller;
 
 import com.example.usercrud.dto.UserDto;
 import com.example.usercrud.service.UserService;
-import com.example.usercrud.swaggerDto.ResponseObject;
+import com.example.usercrud.exception.ResponseObject;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -51,8 +51,7 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<?> addUser(@RequestBody @Valid UserDto userDto) {
         userService.saveUser(userDto);
-        ResponseObject responseObject = new ResponseObject(1, "200", "success", null);
-        return ResponseEntity.ok(responseObject);
+        return ResponseObject.response(null);
     }
 
     @GetMapping("/getAllUsers")
@@ -93,8 +92,7 @@ public class UserController {
     })
     @GetMapping("/getUser/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id) {
-        ResponseObject responseObject = new ResponseObject(0, "200", "User tồn tại", userService.getUserById(id));
-        return ResponseEntity.ok().body(responseObject);
+            return ResponseObject.response(userService.getUserById(id));
     }
 
     @Operation(summary = "Xóa user")
@@ -127,8 +125,7 @@ public class UserController {
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
-        ResponseObject responseObject = new ResponseObject(1, "200", "Xóa thành công", null);
-        return ResponseEntity.ok().body(responseObject);
+        return ResponseObject.response(null);
     }
     @Operation(summary = "Cap nhat user")
     @ApiResponses(value = {
