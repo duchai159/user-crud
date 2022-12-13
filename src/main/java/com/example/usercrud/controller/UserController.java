@@ -130,10 +130,38 @@ public class UserController {
         ResponseObject responseObject = new ResponseObject(1, "200", "Xóa thành công", null);
         return ResponseEntity.ok().body(responseObject);
     }
+    @Operation(summary = "Cap nhat user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Cap nhat thành công",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseObject.class),
+                            examples = @ExampleObject(value = """
+                                    {
+                                        "result": 1,
+                                        "code": "200",
+                                        "message": "Cap nhat thành công",
+                                        "data": null
+                                    }
+                                    """))}),
+            @ApiResponse(responseCode = "404",
+                    description = "Không tìm thấy",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseObject.class),
+                            examples = @ExampleObject(value = """
+                                    {
+                                        "result": 0,
+                                        "code": "404",
+                                        "message": "Không tìm thấy",
+                                        "data": null
+                                    }
+                                    """))})
+    })
 
     @PutMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
         userService.updateUserById(userDto);
-        return ResponseEntity.ok().body(userDto);
+        ResponseObject responseObject = new ResponseObject(1, "200", "success", userDto);
+        return ResponseEntity.ok().body(responseObject);
     }
 }

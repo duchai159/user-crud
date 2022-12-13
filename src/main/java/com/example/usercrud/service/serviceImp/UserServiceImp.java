@@ -2,7 +2,6 @@ package com.example.usercrud.service.serviceImp;
 
 import com.example.usercrud.dto.UserDto;
 import com.example.usercrud.entity.User;
-import com.example.usercrud.entity.UserLogin;
 import com.example.usercrud.exception.UserNotFoundException;
 import com.example.usercrud.repository.UserRepository;
 import com.example.usercrud.service.UserService;
@@ -26,7 +25,7 @@ public class UserServiceImp implements UserService {
     public User getUserById(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if(userOptional.isEmpty()){
-            throw new UserNotFoundException(0,"404","Không tìm thấy", null);
+            throw new UserNotFoundException();
         }
         User user = userOptional.get();
         return user;
@@ -47,14 +46,14 @@ public class UserServiceImp implements UserService {
     @Override
     public void updateUserById(UserDto userDto) {
         User user = new User();
-//        BeanUtils.copyProperties(user, userDto);
+        BeanUtils.copyProperties(user, userDto);
         Optional<User> optionalUser = userRepository.findById(userDto.getId());
         if (optionalUser.isEmpty()){
-            throw new UserNotFoundException(0,"404","Không tìm thấy", null);
+            throw new UserNotFoundException();
         }
-        optionalUser.get().setEmail(userDto.getEmail());
-        optionalUser.get().setAge(userDto.getAge());
-        optionalUser.get().setName(userDto.getName());
+        optionalUser.get().setEmail(user.getEmail());
+        optionalUser.get().setAge(user.getAge());
+        optionalUser.get().setName(user.getName());
         userRepository.save(optionalUser.get());
     }
 }

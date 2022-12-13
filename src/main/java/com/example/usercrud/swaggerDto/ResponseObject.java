@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ResponseObject {
-    @Schema(description = "1: Thành công, 2: Thất bại")
+    @Schema(description = "1: Thành công, 0: Thất bại")
     private int result;
     @Schema(description = "Mã lỗi")
     private String code;
