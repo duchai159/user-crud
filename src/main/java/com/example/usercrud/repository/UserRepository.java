@@ -1,12 +1,18 @@
 package com.example.usercrud.repository;
-
-import com.example.usercrud.dto.UserDto;
 import com.example.usercrud.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import com.example.usercrud.mapper.UserMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+@RequiredArgsConstructor
+public class UserRepository {
+    @Autowired
+    private final UserMapper userMapper;
+    public List<User> getAllUser(){
+        return userMapper.getAllUser();
+    }
 }

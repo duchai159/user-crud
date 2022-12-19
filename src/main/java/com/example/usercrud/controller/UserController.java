@@ -24,14 +24,14 @@ public class UserController {
     @Operation(summary = "Thêm user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Thêm thành công",
+                    description = "Thành công",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseObject.class),
                             examples = @ExampleObject(value = """
                                     {
                                         "result": 1,
                                         "code": "200",
-                                        "message": "thêm thành công",
+                                        "message": "Thành công",
                                         "data": null
                                     }
                                     """))}),
@@ -53,10 +53,24 @@ public class UserController {
         userService.saveUser(userDto);
         return ResponseObject.response(null);
     }
-
+    @Operation(summary = "Trả về danh sách user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Thành công",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ResponseObject.class),
+                            examples = @ExampleObject(value = """
+                                    {
+                                            "id": 3,
+                                            "name": "long",
+                                            "age": 20,
+                                            "email": "long@"
+                                    }
+                                    """))})
+    })
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers() {
-        return ResponseEntity.ok().body(userService.getAllUser());
+        return ResponseObject.response(userService.getAllUser());
     }
 
     @Operation(summary = "Trả về user theo id")
@@ -85,7 +99,7 @@ public class UserController {
                                     {
                                         "result": 0,
                                         "code": "404",
-                                        "message": "Không tìm thấy",
+                                        "message": "Không tìm thấy người dùng",
                                         "data": null
                                     }
                                     """))})
@@ -127,17 +141,17 @@ public class UserController {
         userService.deleteUserById(id);
         return ResponseObject.response(null);
     }
-    @Operation(summary = "Cap nhat user")
+    @Operation(summary = "Cập nhật user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Cap nhat thành công",
+                    description = "Cập nhât thành công",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = ResponseObject.class),
                             examples = @ExampleObject(value = """
                                     {
                                         "result": 1,
                                         "code": "200",
-                                        "message": "Cap nhat thành công",
+                                        "message": "Cập nhật thành công",
                                         "data": null
                                     }
                                     """))}),
@@ -158,7 +172,6 @@ public class UserController {
     @PutMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
         userService.updateUserById(userDto);
-        ResponseObject responseObject = new ResponseObject(1, "200", "success", userDto);
-        return ResponseEntity.ok().body(responseObject);
+        return ResponseObject.response(null);
     }
 }

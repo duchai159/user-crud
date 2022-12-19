@@ -3,57 +3,53 @@ package com.example.usercrud.service.serviceImp;
 import com.example.usercrud.dto.UserDto;
 import com.example.usercrud.entity.User;
 import com.example.usercrud.exception.UserNotFoundException;
-import com.example.usercrud.repository.UserRepository;
+import com.example.usercrud.mapper.UserMapper;
 import com.example.usercrud.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImp implements UserService {
-    @Autowired
-    UserRepository userRepository;
+    private final UserMapper userMapper;
     @Override
     public List<User> getAllUser() {
-        return userRepository.findAll();
+        return userMapper.getAllUser();
     }
 
     @Override
     public User getUserById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+        Optional<User> userOptional = userMapper.getUserById(id);
         if(userOptional.isEmpty()){
             throw new UserNotFoundException();
         }
-        User user = userOptional.get();
-        return user;
+        return userOptional.get();
     }
 
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
-        userRepository.save(user);
+        userMapper.saveUser(user);
     }
 
     @Override
     public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
+        userMapper.deleteUserById(id);
     }
 
     @Override
     public void updateUserById(UserDto userDto) {
         User user = new User();
-        BeanUtils.copyProperties(user, userDto);
-        Optional<User> optionalUser = userRepository.findById(userDto.getId());
+        BeanUtils.copyProperties(userDto, user);
+        Optional<User> optionalUser = userMapper.getUserById(userDto.getId());
         if (optionalUser.isEmpty()){
             throw new UserNotFoundException();
         }
-        optionalUser.get().setEmail(user.getEmail());
-        optionalUser.get().setAge(user.getAge());
-        optionalUser.get().setName(user.getName());
-        userRepository.save(optionalUser.get());
+        userMapper.updateUserById(user);
     }
 }
