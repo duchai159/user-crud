@@ -9,7 +9,6 @@ public class UserDto {
     private Long id;
     @NotBlank
     private String name;
-    @NotBlank
     private Integer age;
     @Email
     private String email;
