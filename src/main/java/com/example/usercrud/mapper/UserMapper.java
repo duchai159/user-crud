@@ -1,13 +1,12 @@
 package com.example.usercrud.mapper;
 
-import com.example.usercrud.dto.UserDto;
 import com.example.usercrud.entity.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.*;
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM user;")
+    @Select("SELECT * FROM user")
     List<User> getAllUser();
 
     @Select("SELECT * FROM user WHERE id = #{id}")
