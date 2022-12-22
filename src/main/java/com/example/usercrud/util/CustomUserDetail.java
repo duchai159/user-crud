@@ -21,12 +21,12 @@ public class CustomUserDetail implements UserDetails {
 
     @Override
     public String getPassword() {
-        return appUser.getEncryptedPassword();
+        return appUser.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return appUser.getUserName();
+        return appUser.getUsername();
     }
 
     @Override

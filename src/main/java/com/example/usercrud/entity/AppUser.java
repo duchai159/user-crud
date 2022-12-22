@@ -1,6 +1,7 @@
 package com.example.usercrud.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,12 +12,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    @Column(name = "username")
-    private String userName;
-    @Column(name = "encryptedPassword")
-    private String encryptedPassword;
+    private Long id;
+    private String username;
+    private String password;
+
 }

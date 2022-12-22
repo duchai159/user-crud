@@ -26,9 +26,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
     @Transactional
     public UserDetails loadUserById(Long id) {
-        AppUser user = appUserMapper.findById(id).orElseThrow(
-                () -> new UsernameNotFoundException("User not found with id : " + id)
-        );
-        return new CustomUserDetail(user);
+        Optional<AppUser> user = appUserMapper.findById(id);
+        return new CustomUserDetail(user.get());
     }
 }

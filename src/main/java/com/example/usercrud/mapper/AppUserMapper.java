@@ -9,11 +9,11 @@ import java.util.*;
 public interface AppUserMapper {
     @Select("SELECT * FROM app_user")
     List<AppUser> getAllAppUser();
-    @Select("SELECT * FROM app_user WHERE USER_NAME = #{username}")
+    @Select("SELECT * FROM app_user WHERE username = #{username}")
     Optional<AppUser> findUserByUserName(String username);
-    @Select("SELECT * FROM app_user WHERE userId = #{userId}")
-    Optional<AppUser> findById(Long userId);
+    @Select("SELECT * FROM app_user WHERE id = #{id}")
+    Optional<AppUser> findById(Long id);
 
-    @Insert("INSERT INTO app_user(username,encryptedPassword) values (#{username},#{encryptedPassword})")
+    @Insert("INSERT INTO app_user(username,password) values (#{username},#{password})")
     void save(AppUser user);
 }
